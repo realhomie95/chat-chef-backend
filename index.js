@@ -53,7 +53,8 @@ app.post("/recipe", async (req, res) => {
       top_p: 1,
     });
     const data = [...messages, response.choices[0].message];
-    console.log("data", data);
+    // console.log("data", data);
+    console.log("response", response);
     res.json({ data });
   } catch (error) {
     console.log(error);
