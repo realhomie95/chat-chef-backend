@@ -8,7 +8,13 @@ const app = express();
 
 // CLIENT_URL
 
-app.use(cors());
+const corsOption = {
+  origin: "https://realhomie-chef-class.netlify.app",
+  credentials: true,
+};
+
+// app.use(cors());
+app.use(cors(corsOption));
 
 // 프론트엔드에서 받은 json형태의 데이터를 자바스크립트 객체로 변경(파싱)해주는 코드
 app.use(express.json()); // for parsing application/json
