@@ -9,7 +9,7 @@ const app = express();
 // CLIENT_URL
 
 const corsOption = {
-  origin: "https://realhomie-chef-class.netlify.app",
+  origin: "https://chat-chef-fronted.netlify.app",
   credentials: true,
 };
 
