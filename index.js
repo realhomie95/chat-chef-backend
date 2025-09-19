@@ -6,6 +6,8 @@ import * as dotenv from "dotenv";
 
 const app = express();
 
+// CLIENT_URL
+
 app.use(cors());
 
 // 프론트엔드에서 받은 json형태의 데이터를 자바스크립트 객체로 변경(파싱)해주는 코드
@@ -19,8 +21,6 @@ dotenv.config(); //환경변수 로드
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-console.log(process.env.OPENAI_API_KEY);
 
 // 챗봇 api설정
 const initialMessage = (ingredientList) => {
@@ -43,18 +43,15 @@ const initialMessage = (ingredientList) => {
 app.post("/recipe", async (req, res) => {
   const { ingredientList } = req.body; // 프론트엔드에서 재료 목록을 받음
   const messages = initialMessage(ingredientList);
-  console.log("🚀 ~ messages:", messages);
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages,
       temperature: 1,
       max_tokens: 4000,
       top_p: 1,
     });
     const data = [...messages, response.choices[0].message];
-    // console.log("data", data);
-    console.log("response", response);
     res.json({ data });
   } catch (error) {
     console.log(error);
@@ -68,7 +65,7 @@ app.post("/message", async (req, res) => {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [...messages, userMessage],
       temperature: 1,
       max_tokens: 4000,
